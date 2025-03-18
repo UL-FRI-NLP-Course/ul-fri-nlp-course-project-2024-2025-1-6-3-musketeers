@@ -1,3 +1,3 @@
-# Natural language processing course: `Put name of your project here`
+# Natural language processing course: `Conversational Agent with Retrieval-Augmented Generation`
 
-Please, organize README and the whole structure of the repository to be self-contained and reproducible.
+Develop a conversational agent that enhances the quality and accuracy of its responses by dynamically retrieving and integrating relevant external documents from the web. Unlike traditional chatbots that rely solely on pre-trained knowledge, this system will perform real-time information retrieval, ensuring up-to-date answers. Potential applications include customer support, academic research assistance, and general knowledge queries. The project will involve natural language processing (NLP), web scraping, and retrieval-augmented generation (RAG) techniques to optimize answer quality.

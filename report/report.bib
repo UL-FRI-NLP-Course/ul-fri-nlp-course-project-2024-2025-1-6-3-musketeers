@@ -1,19 +1,59 @@
-@article{Demsar2016BalancedMixture,
-    title = {{A Balanced Mixture of Antagonistic Pressures Promotes the Evolution of Parallel Movement}},
-    year = {2016},
-    journal = {Scientific Reports},
-    author = {Dem{\v{s}}ar, Jure and {\v{S}}trumbelj, Erik and Lebar Bajec, Iztok},
-    volume = {6},
-    doi = {10.1038/srep39428}
+@misc{gao2024retrievalaugmentedgenerationlargelanguage,
+      title={Retrieval-Augmented Generation for Large Language Models: A Survey}, 
+      author={Yunfan Gao and Yun Xiong and Xinyu Gao and Kangxiang Jia and Jinliu Pan and Yuxi Bi and Yi Dai and Jiawei Sun and Meng Wang and Haofen Wang},
+      year={2024},
+      eprint={2312.10997},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2312.10997}, 
 }
 
-@article{Demsar2017LinguisticEvolution,
-    title = {{Evolution of Collective Behaviour in an Artificial World Using Linguistic Fuzzy Rule-Based Systems}},
-    year = {2017},
-    journal = {PLoS ONE},
-    author = {Dem{\v{s}}ar, Jure and Lebar Bajec, Iztok},
-    number = {1},
-    pages = {1--20},
-    volume = {12},
-    doi = {10.1371/journal.pone.0168876}
+@article{Chen_Lin_Han_Sun_2024,
+title={Benchmarking Large Language Models in Retrieval-Augmented Generation},
+volume={38},
+url={https://ojs.aaai.org/index.php/AAAI/article/view/29728},
+DOI={10.1609/aaai.v38i16.29728},
+abstractNote={Retrieval-Augmented Generation (RAG) is a promising approach for mitigating the hallucination of large language models (LLMs). However, existing research lacks rigorous evaluation of the impact of retrieval-augmented generation on different large language models, which make it challenging to identify the potential bottlenecks in the capabilities of RAG for different LLMs. In this paper, we systematically investigate the impact of Retrieval-Augmented Generation on large language models. We analyze the performance of different large language models in 4 fundamental abilities required for RAG, including noise robustness, negative rejection, information integration, and counterfactual robustness. To this end, we establish Retrieval-Augmented Generation Benchmark (RGB), a new corpus for RAG evaluation in both English and Chinese. RGB divides the instances within the benchmark into 4 separate testbeds based on the aforementioned fundamental abilities required to resolve the case. Then we evaluate 6 representative LLMs on RGB to diagnose the challenges of current LLMs when applying RAG. Evaluation reveals that while LLMs exhibit a certain degree of noise robustness, they still struggle significantly in terms of negative rejection, information integration, and dealing with false information. The aforementioned assessment outcomes indicate that there is still a considerable journey ahead to effectively apply RAG to LLMs.},
+number={16},
+journal={Proceedings of the AAAI Conference on Artificial Intelligence},
+author={Chen, Jiawei and Lin, Hongyu and Han, Xianpei and Sun, Le},
+year={2024},
+month={Mar.},
+pages={17754-17762} }
+
+@inproceedings{jiang-etal-2023-active,
+    title = "Active Retrieval Augmented Generation",
+    author = "Jiang, Zhengbao  and
+      Xu, Frank  and
+      Gao, Luyu  and
+      Sun, Zhiqing  and
+      Liu, Qian  and
+      Dwivedi-Yu, Jane  and
+      Yang, Yiming  and
+      Callan, Jamie  and
+      Neubig, Graham",
+    editor = "Bouamor, Houda  and
+      Pino, Juan  and
+      Bali, Kalika",
+    booktitle = "Proceedings of the 2023 Conference on Empirical Methods in Natural Language Processing",
+    month = dec,
+    year = "2023",
+    address = "Singapore",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2023.emnlp-main.495/",
+    doi = "10.18653/v1/2023.emnlp-main.495",
+    pages = "7969--7992",
+    abstract = "Despite the remarkable ability of large language models (LMs) to comprehend and generate language, they have a tendency to hallucinate and create factually inaccurate output. Augmenting LMs by retrieving information from external knowledge resources is one promising solution. Most existing retrieval augmented LMs employ a retrieve-and-generate setup that only retrieves information once based on the input. This is limiting, however, in more general scenarios involving generation of long texts, where continually gathering information throughout generation is essential. In this work, we provide a generalized view of active retrieval augmented generation, methods that actively decide when and what to retrieve across the course of the generation. We propose Forward-Looking Active REtrieval augmented generation (FLARE), a generic method which iteratively uses a prediction of the upcoming sentence to anticipate future content, which is then utilized as a query to retrieve relevant documents to regenerate the sentence if it contains low-confidence tokens. We test FLARE along with baselines comprehensively over 4 long-form knowledge-intensive generation tasks/datasets. FLARE achieves superior or competitive performance on all tasks, demonstrating the effectiveness of our method."
+}
+
+@inproceedings{NEURIPS2020_6b493230,
+ author = {Lewis, Patrick and Perez, Ethan and Piktus, Aleksandra and Petroni, Fabio and Karpukhin, Vladimir and Goyal, Naman and K\"{u}ttler, Heinrich and Lewis, Mike and Yih, Wen-tau and Rockt\"{a}schel, Tim and Riedel, Sebastian and Kiela, Douwe},
+ booktitle = {Advances in Neural Information Processing Systems},
+ editor = {H. Larochelle and M. Ranzato and R. Hadsell and M.F. Balcan and H. Lin},
+ pages = {9459--9474},
+ publisher = {Curran Associates, Inc.},
+ title = {Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks},
+ url = {https://proceedings.neurips.cc/paper_files/paper/2020/file/6b493230205f780e1bc26945df7481e5-Paper.pdf},
+ volume = {33},
+ year = {2020}
 }
