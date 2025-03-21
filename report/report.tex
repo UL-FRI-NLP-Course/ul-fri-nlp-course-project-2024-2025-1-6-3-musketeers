@@ -93,12 +93,44 @@ the performance of our model by comparing it to GPT-4 / BERT models.
 %------------------------------------------------
 
 \section*{Related work}
+The concept of Retrieval-Augmented Generation (RAG) was first introduced in 2020 by \cite{NEURIPS2020_6b493230}, who proposed a framework that combines the strengths of large language models (LLMs) with external knowledge retrieval. Since then, RAG has seen significant advancements, particularly in the context of domain-specific applications and conversational agents.
 
-Implementation of Retrieval-Augmented Generation (RAG) was first introduced in 2020 and since then the amount of contributions has been growing. A. Afzal et al. (2024) reported optimization to enhance performance in the academic domain.
+In the paper "Towards Optimizing a Retrieval Augmented Generation using Large Language Model on Academic Data" by \cite{afzal2024towards}, the authors explore various optimization techniques for RAG in the academic domain. They introduce several enhancements, such as Multi-Query, Child-Parent Retriever, Ensemble Retriever, and In-Context Learning, to improve the performance of RAG systems. Their experiments demonstrate that incorporating multi-query techniques significantly boosts retrieval effectiveness, especially in domain-specific contexts like university study programs. The authors also propose a novel evaluation approach, the RAG Confusion Matrix, to assess the effectiveness of different RAG configurations.
+
+Another relevant work is the survey by \cite{gao2024retrievalaugmentedgenerationlargelanguage}, titled "Retrieval-Augmented Generation for Large Language Models: A Survey," which provides a comprehensive overview of RAG's evolution. The survey categorizes RAG into three paradigms: Naive RAG, Advanced RAG, and Modular RAG. It highlights the importance of retrieval, generation, and augmentation techniques in enhancing the performance of RAG systems. The survey also discusses the challenges and future directions of RAG, such as improving robustness, handling long contexts, and integrating multimodal data.
+
+These works provide a solid foundation for understanding the current state of RAG and its applications in conversational agents. They also offer insights into potential optimization techniques and evaluation methods that can be applied to our project.
 
 %------------------------------------------------
 
 \section*{Methods}
+For our project, we aim to develop a conversational agent that leverages RAG to provide accurate and up-to-date responses by dynamically retrieving information from external sources. The proposed methodology involves the following steps:
+
+\subsection*{Dataset Selection}
+We will use publicly available datasets for training and evaluation. Potential datasets include:
+\begin{itemize}
+    \item \textbf{MS MARCO}: A large-scale dataset for machine reading comprehension and question answering, which is suitable for training retrieval-based models.
+    \item \textbf{Natural Questions (NQ)}: A dataset that contains real user queries and corresponding answers from Wikipedia, making it ideal for evaluating the factual accuracy of our conversational agent.
+    \item \textbf{HotpotQA}: A dataset that requires multi-hop reasoning, which will help us test the agent's ability to integrate information from multiple sources.
+\end{itemize}
+
+\subsection*{Implementation Ideas}
+\begin{itemize}
+    \item \textbf{Multi-Query Retrieval}: Inspired by \cite{afzal2024towards}, we can implement a multi-query approach to generate multiple variations of the user's query, which will help retrieve a broader range of relevant documents.
+    \item \textbf{Ensemble Retriever}: We can combine different retrieval methods (e.g., BM25 and semantic search) to improve the relevance of retrieved documents.
+    \item \textbf{In-Context Learning}: We will experiment with in-context learning techniques to fine-tune the conversational agent's responses based on the retrieved context.
+    \item \textbf{Prompt Engineering}: We will explore various prompt engineering strategies to guide the model in generating more accurate and coherent responses.
+\end{itemize}
+
+%------------------------------------------------
+
+\section*{Results}
+(To be completed after implementation and evaluation.)
+
+%------------------------------------------------
+
+\section*{Discussion}
+(To be completed after implementation and evaluation.)
 
 %------------------------------------------------
 
