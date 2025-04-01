@@ -1,155 +1,84 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% FRI Data Science_report LaTeX Template
-% Version 1.0 (28/1/2020)
-% 
-% Jure Demšar (jure.demsar@fri.uni-lj.si)
-%
-% Based on MicromouseSymp article template by:
-% Mathias Legrand (legrand.mathias@gmail.com) 
-% With extensive modifications by:
-% Antonio Valente (antonio.luis.valente@gmail.com)
-%
-% License:
-% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-%----------------------------------------------------------------------------------------
-%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
-%----------------------------------------------------------------------------------------
 \documentclass[fleqn,moreauthors,10pt]{ds_report}
 \usepackage[english]{babel}
-\usepackage{newtxtext, newtxmath}
 
 \graphicspath{{fig/}}
 
-
-
-
-%----------------------------------------------------------------------------------------
-%	ARTICLE INFORMATION
-%----------------------------------------------------------------------------------------
-
-% Header
 \JournalInfo{FRI Natural language processing course 2025}
 
-% Interim or final report
 \Archive{Project report} 
-%\Archive{Final report} 
 
-% Article title
 \PaperTitle{Conversational Agent with Retrieval-Augmented Generation} 
 
-% Authors (student competitors) and their info
 \Authors{Katarina Velkov, Nejc Krajšek, Luka Sabotič}
 
-% Advisors
 \affiliation{\textit{Advisors: Aleš Žagar}}
 
-% Keywords
 \Keywords{Conversational agent, Retrieval-Augmented Generation}
 \newcommand{\keywordname}{Keywords}
 
-
-%----------------------------------------------------------------------------------------
-%	ABSTRACT
-%----------------------------------------------------------------------------------------
-
 \Abstract{
-
+abstract
 }
-
-%----------------------------------------------------------------------------------------
 
 \begin{document}
 
-% Makes all text pages the same height
 \flushbottom 
 
-% Print the title and abstract box
 \maketitle 
 
-% Removes page numbering from the first page
 \thispagestyle{empty} 
-
-%----------------------------------------------------------------------------------------
-%	ARTICLE CONTENTS
-%----------------------------------------------------------------------------------------
 
 \section*{Introduction}
 Large language models (LLM) rely solely on their pre-trained knowledge to generate responses. 
 These models have proved to be powerful but they are prone to generating hallucinated or inaccurate information. 
 Furthermore their use in specialized fields has proved to be challenging as LLMs are trained mostly on publicly available 
-data. That is why the need for more advanced models has emerged. Retrieval-Augmented Generation (RAG) enables LLMs to 
-retrieve more relevant information from various internal databases and web sources during conversations. 
+data and are not updated after new data arises. That is why the need for more advanced models has emerged. Retrieval-Augmented Generation (RAG) enables LLMs to 
+retrieve more relevant information from various external databases and web sources during conversations. 
 This process allows for more accurate, domain-specific and up-to-date responses.
 
 The aim of this project is to build a conversational agent using the RAG technique. We wil use an existing large language model, 
-expand it to be able to search the web for relevant topics and use the web data to improve the output. We will evaluate 
-the performance of our model by comparing it to GPT-4 / BERT models.
+expand it to be able to query linked domain-specific databases. We will evaluate 
+the performance of our model by comparing it to the original LLM to discover improvements our Implementation brought and also other RAGs available online to inspect the overall quality of our work.
 
-
-%------------------------------------------------
 
 \section*{Related work}
 The concept of Retrieval-Augmented Generation (RAG) was first introduced in 2020 by \cite{NEURIPS2020_6b493230}, who proposed a framework that combines the strengths of large language models (LLMs) with external knowledge retrieval. Since then, RAG has seen significant advancements, particularly in the context of domain-specific applications and conversational agents.
 
-In the paper "Towards Optimizing a Retrieval Augmented Generation using Large Language Model on Academic Data" by \cite{afzal2024towards}, the authors explore various optimization techniques for RAG in the academic domain. They introduce several enhancements, such as Multi-Query, Child-Parent Retriever, Ensemble Retriever, and In-Context Learning, to improve the performance of RAG systems. Their experiments demonstrate that incorporating multi-query techniques significantly boosts retrieval effectiveness, especially in domain-specific contexts like university study programs. The authors also propose a novel evaluation approach, the RAG Confusion Matrix, to assess the effectiveness of different RAG configurations.
+In the paper "Towards Optimizing a Retrieval Augmented Generation using Large Language Model on Academic Data" \cite{afzal2024towards}, the authors explore various optimization techniques for RAG in the academic domain. They introduce several enhancements, such as Multi-Query, Child-Parent Retriever, Ensemble Retriever, and In-Context Learning, to improve the performance of RAG systems. Their experiments demonstrate that incorporating multi-query techniques significantly boosts retrieval effectiveness, especially in domain-specific contexts like university study programs. The authors also propose a novel evaluation approach, the RAG Confusion Matrix, to assess the effectiveness of different RAG configurations.
 
-Another relevant work is the survey by \cite{gao2024retrievalaugmentedgenerationlargelanguage}, titled "Retrieval-Augmented Generation for Large Language Models: A Survey," which provides a comprehensive overview of RAG's evolution. The survey categorizes RAG into three paradigms: Naive RAG, Advanced RAG, and Modular RAG. It highlights the importance of retrieval, generation, and augmentation techniques in enhancing the performance of RAG systems. The survey also discusses the challenges and future directions of RAG, such as improving robustness, handling long contexts, and integrating multimodal data.
+Another relevant work is the survey titled "Retrieval-Augmented Generation for Large Language Models: A Survey," \cite{gao2024retrievalaugmentedgenerationlargelanguage}, which provides a comprehensive overview of RAG's evolution. The survey categorizes RAG into three paradigms: Naive RAG, Advanced RAG, and Modular RAG. It highlights the importance of retrieval, generation, and augmentation techniques in enhancing the performance of RAG systems. The survey also discusses the challenges and future directions of RAG, such as improving robustness, handling long contexts, and integrating multimodal data.
+	
 
-These works provide a solid foundation for understanding the current state of RAG and its applications in conversational agents. They also offer insights into potential optimization techniques and evaluation methods that can be applied to our project.
-
-%------------------------------------------------
 
 \section*{Methods}
-For our project, we aim to develop a conversational agent that leverages RAG to provide accurate and up-to-date responses by dynamically retrieving information from external sources. The proposed methodology involves the following steps:
+For our project, we aim to develop a conversational agent that leverages RAG to provide accurate responses by dynamically retrieving information from the provided databases. We are going to focus on 
+the programming and debbugging domain, trying to create a model that will correctly produce, complete and corrrect the given code. We will provide it with public Github \cite{GitHub} and Stack overflow \cite{StackOverflow} data that our model will query and find 
+similar examples which it will use to help the user. 
 
-\subsection*{Dataset Selection}
-We will use publicly available datasets for training and evaluation. Potential datasets include:
+The proposed methodology involves the following steps:
+
+\subsection*{Implementation plan}
+Our plan is to create a pipeline structured as an advanced RAG. It looks as following:
 \begin{itemize}
-    \item \textbf{MS MARCO}: A large-scale dataset for machine reading comprehension and question answering, which is suitable for training retrieval-based models.
-    \item \textbf{Natural Questions (NQ)}: A dataset that contains real user queries and corresponding answers from Wikipedia, making it ideal for evaluating the factual accuracy of our conversational agent.
-    \item \textbf{HotpotQA}: A dataset that requires multi-hop reasoning, which will help us test the agent's ability to integrate information from multiple sources.
+    \item \textbf{Indexing} - preprocessing of database data into a uniform format (plain text). Text is then segmented into chunks which are smaller and easier to work with than with original documents. We will use an embedding model to store these chunks into a vector database for later use.
+    \item \textbf{Pre-retrieval} - optimizing the user query to improve its indexing and retrieved chunks
+    \item \textbf{Retrieval} - embedding the query into the vector database and retrieving similar vectors
+    \item \textbf{Post-retrieval} - process retrieved chunks to create a quality context to be passed to LLM. Emphasize most relevant context and guard against overloading the LLM with information. 
+    \item \textbf{Generation} - combine the (improved) user query with the retrieved context and pass it to the LLM to get the desired answer
 \end{itemize}
 
-\subsection*{Implementation Ideas}
-\begin{itemize}
-    \item \textbf{Multi-Query Retrieval}: Inspired by \cite{afzal2024towards}, we can implement a multi-query approach to generate multiple variations of the user's query, which will help retrieve a broader range of relevant documents.
-    \item \textbf{Ensemble Retriever}: We can combine different retrieval methods (e.g., BM25 and semantic search) to improve the relevance of retrieved documents.
-    \item \textbf{In-Context Learning}: We will experiment with in-context learning techniques to fine-tune the conversational agent's responses based on the retrieved context.
-    \item \textbf{Prompt Engineering}: We will explore various prompt engineering strategies to guide the model in generating more accurate and coherent responses.
-\end{itemize}
-
-%------------------------------------------------
-
-\section*{Results}
-(To be completed after implementation and evaluation.)
-
-%------------------------------------------------
-
-\section*{Discussion}
-(To be completed after implementation and evaluation.)
-
-%------------------------------------------------
+As our base LLM, we will use ChatGPT 3 and OpenAI API to integrate it into our model. We will also need a way to embed external data and store it into a vector database into which we will embed user queries.
+To do that, we are going to use either Chroma or Pinecone. We might need to use other resources for query optimization as well, but we are not yet sure what will be needed.
 
 \section*{Results}
 
-%------------------------------------------------
 
 \section*{Discussion}
 
-
-%------------------------------------------------
 
 \section*{Acknowledgments}
 
-%----------------------------------------------------------------------------------------
-%	REFERENCE LIST
-%----------------------------------------------------------------------------------------
 \bibliographystyle{unsrt}
-\bibliography{report.bib}
-
+\bibliography{report}
 
 \end{document}
