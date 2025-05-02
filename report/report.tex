@@ -1,5 +1,32 @@
 \documentclass[fleqn,moreauthors,10pt]{ds_report}
 \usepackage[english]{babel}
+\usepackage{listings}
+\usepackage{xcolor} % For custom colors
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{1, 1, 1}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+\lstset{style=mystyle}
 
 \graphicspath{{fig/}}
 
@@ -36,39 +63,68 @@ data and are not updated after new data arises. That is why the need for more ad
 retrieve more relevant information from various external databases and web sources during conversations. 
 This process allows for more accurate, domain-specific and up-to-date responses.
 
-The aim of this project is to build a conversational agent using the RAG technique. We wil use an existing large language model, 
+The aim of this project is to build a conversational agent using the RAG technique. We will use an existing large language model, 
 expand it to be able to query linked domain-specific databases. We will evaluate 
-the performance of our model by comparing it to the original LLM to discover improvements our Implementation brought and also other RAGs available online to inspect the overall quality of our work.
+the performance of our model by comparing it to the original LLM to discover improvements our implementation brought and also other RAGs available online to inspect the overall quality of our work.
 
 
 \section*{Related work}
 The concept of Retrieval-Augmented Generation (RAG) was first introduced in 2020 by \cite{NEURIPS2020_6b493230}, who proposed a framework that combines the strengths of large language models (LLMs) with external knowledge retrieval. Since then, RAG has seen significant advancements, particularly in the context of domain-specific applications and conversational agents.
 
-In the paper "Towards Optimizing a Retrieval Augmented Generation using Large Language Model on Academic Data" \cite{afzal2024towards}, the authors explore various optimization techniques for RAG in the academic domain. They introduce several enhancements, such as Multi-Query, Child-Parent Retriever, Ensemble Retriever, and In-Context Learning, to improve the performance of RAG systems. Their experiments demonstrate that incorporating multi-query techniques significantly boosts retrieval effectiveness, especially in domain-specific contexts like university study programs. The authors also propose a novel evaluation approach, the RAG Confusion Matrix, to assess the effectiveness of different RAG configurations.
+Since we are focusing on RAG of code and code-based answers, we also took a look at \cite{large_codebaseRAG}. The authors explain how natural language RAG differs from code-based applications. They emphasize chunking as the crucial difference and explain how it should be done to preserve context such as import statements and dependencies across all chunks of the code file. \cite{sweepai} provide open source code for their chunking algorithm and other RAG components as are used in the Jet Brains Sweep AI coding assistant. Here, the chunking algorithm differs quite a lot from the standard approach for natural language RAG. Programming itself is quite prone to syntax errors, not to mention LLM generated code. This is why \cite{self-correction} provide a RAG pipeline that performs dependency and syntax unit tests on the generated code to ensure correctness of the output, which we see as a good idea for our project.
 
 Another relevant work is the survey titled "Retrieval-Augmented Generation for Large Language Models: A Survey," \cite{gao2024retrievalaugmentedgenerationlargelanguage}, which provides a comprehensive overview of RAG's evolution. The survey categorizes RAG into three paradigms: Naive RAG, Advanced RAG, and Modular RAG. It highlights the importance of retrieval, generation, and augmentation techniques in enhancing the performance of RAG systems. The survey also discusses the challenges and future directions of RAG, such as improving robustness, handling long contexts, and integrating multimodal data.
 	
 
 
 \section*{Methods}
-For our project, we aim to develop a conversational agent that leverages RAG to provide accurate responses by dynamically retrieving information from the provided databases. We are going to focus on 
-the programming and debbugging domain, trying to create a model that will correctly produce, complete and corrrect the given code. We will provide it with public Github \cite{GitHub} and Stack overflow \cite{StackOverflow} data that our model will query and find 
-similar examples which it will use to help the user. 
+We have developed a retrieval-augmented generation to provide relevant context to a conversational agent, which then produces the answer to the user query. We are focusing on the programming and debugging domain, trying to create a model that will correctly generate, complete and correct the given programming code and answer other programming-related questions. 
 
-The proposed methodology involves the following steps:
+We used Stack Overflow \cite{StackOverflow} question-answer pairs as our context database, for now only  focusing on python-related content due to the computational complexity of the pipeline. Later, if resources allow, we are going to expand to other languages as well.
 
-\subsection*{Implementation plan}
-Our plan is to create a pipeline structured as an advanced RAG. It looks as following:
-\begin{itemize}
-    \item \textbf{Indexing} - preprocessing of database data into a uniform format (plain text). Text is then segmented into chunks which are smaller and easier to work with than with original documents. We will use an embedding model to store these chunks into a vector database for later use.
-    \item \textbf{Pre-retrieval} - optimizing the user query to improve its indexing and retrieved chunks
-    \item \textbf{Retrieval} - embedding the query into the vector database and retrieving similar vectors
-    \item \textbf{Post-retrieval} - process retrieved chunks to create a quality context to be passed to LLM. Emphasize most relevant context and guard against overloading the LLM with information. 
-    \item \textbf{Generation} - combine the (improved) user query with the retrieved context and pass it to the LLM to get the desired answer
-\end{itemize}
+\subsection*{Data preparation}
+As mentioned, we are using Stack Overflow data, specifically extracted python tagged questions from Google Big Query's public Stack Overflow dataset. We are not only  interested in question and answer contents, but also tags and Stack Overflow scores, for pre- and post-retrieval processing.
 
-As our base LLM, we will use ChatGPT 3 and OpenAI API to integrate it into our model. We will also need a way to embed external data and store it into a vector database into which we will embed user queries.
-To do that, we are going to use either Chroma or Pinecone. We might need to use other resources for query optimization as well, but we are not yet sure what will be needed.
+\subsection*{Chunking}
+We split each answer-question pair into multiple chunks. For each chunk, we save the text to be embedded and also some metadata that will help at the retrieval step. For a question-answer pair, we embed: the question with the answer stored as metadata, the answer, and all the code blocks we find in answers. We don't use code from the question texts, as it often contains errors and is thus in the question body. We use a very simple code identifier function that claims something is code if it is inside '$<$code$>$' blocks, longer than 10 characters and contains at least two lines, as code usually spans across multiple lines. 
+
+\subsection*{Embedding}
+For the embedding, we are using the all-MiniLM-L6-v2 \cite{miniLM}, which embeds text into a 384-dimensional dense vector space. Embeddings are then stored in a vector database, provided by the Chroma \cite{chroma} library. It automatically embeds and stores the chunks. It also provides easy retrieval by only calling the get function with the query, distance function and the number of wanted results. 
+
+\subsection*{Retrieval}
+We retrieve context chunks by embedding the user query and returning the 3 closest results by cosine distance. For the chunks that represent questions, we return the answer instead of the question, as this is the more relevant information for the user; we want to answer their question, not repeat what they asked. Code and answers are just returned. In the future, we might somehow include question and answer scores and tags into this step to further improve the results.
+
+\subsection*{Augmentation}
+When we have both the user question and the relevant contexts, we build a prompt that will be passed to the LLM. To do this, we use the following function:
+\begin{lstlisting}[language=Python]
+def build_prompt(self, query, results):
+    contexts = self.context_from_results(results)
+    return f'''
+    Answer the following code related question using the context provided inside triple qoutes in it is useful.
+    In the answer provide an example of code that is related to the question.
+    If you do not know the answer, say that you do not know. Do not try to invent the solution.
+        
+
+    Question: {query}
+
+
+    ```{''.join(f"Context {i}: {context}{chr(10)}{chr(10)}" for i, context in enumerate(contexts))}```
+
+        
+    Answer:
+
+    '''
+\end{lstlisting}
+This is a basic prompt with the most important instructions. Further prompt engineering is a subject of later work, when more important parts are finished.
+
+\subsection*{Generation}
+We chose the StableLM 2 Zephyr 1.6B \cite{stabilityAI} as our LLM. This was because it is a poorly performing model for programming and mathematics tasks and we hope for significant differences in the results between using the basic model query and our RAG injection. 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\linewidth]{fig/QH00HVM3lg-5f17U_py4K.png}
+    \caption{Performance of the selected model compared to other similar-sized models.}
+    \label{fig:example} % For cross-referencing
+\end{figure}
 
 \section*{Results}
 
