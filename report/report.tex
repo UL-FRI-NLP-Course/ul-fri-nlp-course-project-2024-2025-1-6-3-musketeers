@@ -92,7 +92,10 @@ We split each answer-question pair into multiple chunks. For each chunk, we save
 For the embedding, we are using the all-MiniLM-L6-v2 \cite{miniLM}, which embeds text into a 384-dimensional dense vector space. Embeddings are then stored in a vector database, provided by the Chroma \cite{chroma} library. It automatically embeds and stores the chunks. It also provides easy retrieval by only calling the get function with the query, distance function and the number of wanted results. 
 
 \subsection*{Retrieval}
-We retrieve context chunks by embedding the user query and returning the 3 closest results by cosine distance. For the chunks that represent questions, we return the answer instead of the question, as this is the more relevant information for the user; we want to answer their question, not repeat what they asked. Code and answers are just returned. In the future, we might somehow include question and answer scores and tags into this step to further improve the results.
+We retrieve context chunks by embedding the user query and returning the 10 closest results by cosine distance. For the chunks that represent questions, we return the answer instead of the question, as this is the more relevant information for the user; we want to answer their question, not repeat what they asked. Code and answers are just returned. 
+
+\subsection*{Reranking}
+After retrieval, the results are reranked using the cross encoder model bge-reranker-base \cite{reranker_model}
 
 \subsection*{Augmentation}
 When we have both the user question and the relevant contexts, we build a prompt that will be passed to the LLM. To do this, we use the following function:
@@ -131,6 +134,8 @@ We chose the StableLM 2 Zephyr 1.6B \cite{stabilityAI} as our LLM. This was beca
 For evaluation of our Retrieval-Augmented Generation (RAG) model for assisting with Python coding queries, we made a human evaluation and quantitative evaluation using ROUGE and BERTScore evaluation metrics. We created three sets of queries, first of 14 simple questions, second of 13 semi-advanced instructions and third of 7 advanced tasks. The first set is meant to test model's ability to answer and provide code snippets on simple coding questions. The second set is meant to test the model's ability to provide more complex answers and implement specific algorithms, such as implementing a simple calculator and check for palindromes. The third set is meant to test advanced tasks, such as implementing a machine learning model. 
 
 The generated answers using the RAG model were processed as to remove "Incorrect answer" parts, remove markdown (eg. ```python) and the whitespace was normalized. In the evaluation step, the answers were compared to the ground truth answers, which were processed in the same way. The results of the evaluation are shown in the Table \ref{tab:results}.
+
+The human evaluation results were obtained by 3 evaluators (authors), who evaluated the answers on a scale from 1 to 5, regarding 7 predetermined categories. The results are shown in the Table \ref{tab:human_eval}.
 
 
 
