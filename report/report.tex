@@ -128,6 +128,15 @@ We chose the StableLM 2 Zephyr 1.6B \cite{stabilityAI} as our LLM. This was beca
 
 \section*{Results}
 
+For evaluation of our Retrieval-Augmented Generation (RAG) model for assisting with Python coding queries, we made a human evaluation and quantitative evaluation using ROUGE and BERTScore evaluation metrics. We created three sets of queries, first of 14 simple questions, second of 13 semi-advanced instructions and third of 7 advanced tasks. The first set is meant to test model's ability to answer and provide code snippets on simple coding questions. The second set is meant to test the model's ability to provide more complex answers and implement specific algorithms, such as implementing a simple calculator and check for palindromes. The third set is meant to test advanced tasks, such as implementing a machine learning model. 
+
+The generated answers using the RAG model were processed as to remove "Incorrect answer" parts, remove markdown (eg. ```python) and the whitespace was normalized. In the evaluation step, the answers were compared to the ground truth answers, which were processed in the same way. The results of the evaluation are shown in the Table \ref{tab:results}.
+
+
+
+
+
+
 
 \section*{Discussion}
 
