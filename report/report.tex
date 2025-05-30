@@ -2,6 +2,8 @@
 \usepackage[english]{babel}
 \usepackage{listings}
 \usepackage{xcolor} % For custom colors
+\usepackage{booktabs}
+\usepackage{caption}
 
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
@@ -95,7 +97,7 @@ For the embedding, we are using the all-MiniLM-L6-v2 \cite{miniLM}, which embeds
 We retrieve context chunks by embedding the user query and returning the 10 closest results by cosine distance. For the chunks that represent questions, we return the answer instead of the question, as this is the more relevant information for the user; we want to answer their question, not repeat what they asked. Code and answers are just returned. 
 
 \subsection*{Reranking}
-After retrieval, the results are reranked using the cross encoder model bge-reranker-base \cite{reranker_model}
+After retrieval, the results are reranked using the cross encoder model bge-reranker-base \cite{reranker_model}. From the 10 retrieved results, we selected top 3 results, which are then used as context for the LLM.
 
 \subsection*{Augmentation}
 When we have both the user question and the relevant contexts, we build a prompt that will be passed to the LLM. To do this, we use the following function:
@@ -129,13 +131,34 @@ We chose the StableLM 2 Zephyr 1.6B \cite{stabilityAI} as our LLM. This was beca
     \label{fig:example} % For cross-referencing
 \end{figure}
 
+
+The obtained answers to queries, generated using the RAG model, were then processed as to remove "Incorrect answer" parts, remove markdown (eg. ```python) and the whitespace was normalized. In the evaluation step, the answers were compared to the ground truth answers, which were processed in the same way. The results of the evaluation separately on the three sets are shown in the Table \ref{tab:rag_results}. 
+
+
 \section*{Results}
+For evaluation of our Retrieval-Augmented Generation (RAG) model for assisting with Python coding queries, we made a human evaluation and quantitative evaluation using ROUGE-1, ROUGE-L and BERTScore F1 evaluation metrics. We created three sets of queries, divided by the difficulty of the coding question/instruction. The first set consists of 14 simple questions, second of 13 semi-advanced instructions and third of 7 advanced tasks. The first set is meant to test model's ability to answer and provide code snippets on simple coding questions. The second set is meant to test the model's ability to provide more complex answers and implement specific algorithms, such as implementing a simple calculator and check for palindromes. The third set is meant to test advanced tasks, such as implementing a machine learning model. 
 
-For evaluation of our Retrieval-Augmented Generation (RAG) model for assisting with Python coding queries, we made a human evaluation and quantitative evaluation using ROUGE and BERTScore evaluation metrics. We created three sets of queries, first of 14 simple questions, second of 13 semi-advanced instructions and third of 7 advanced tasks. The first set is meant to test model's ability to answer and provide code snippets on simple coding questions. The second set is meant to test the model's ability to provide more complex answers and implement specific algorithms, such as implementing a simple calculator and check for palindromes. The third set is meant to test advanced tasks, such as implementing a machine learning model. 
+The following tables show the evaluation results of the RAG model across the three sets of questions, categorized by difficulty and the average results across all sets. The evaluation metrics used are ROUGE-1, ROUGE-L and BERTScore. The ROUGE-1 measures unigram overlap, the ROUGE-L is a measure of the longest common subsequence. BERTScore F1 compares the semantic similarity between the generated answer and the ground truth.
 
-The generated answers using the RAG model were processed as to remove "Incorrect answer" parts, remove markdown (eg. ```python) and the whitespace was normalized. In the evaluation step, the answers were compared to the ground truth answers, which were processed in the same way. The results of the evaluation are shown in the Table \ref{tab:results}.
+\begin{table}[h]
+\centering
+\caption{Evaluation results of the RAG model across question difficulty categories.}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Category} & \texttt{ROUGE-1} & \texttt{ROUGE-L} & \texttt{BERT F1} \\
+\midrule
+Simple         & 0.25 & 0.21 & -0.49 \\
+Semi-Advanced  & 0.29 & 0.26 & -0.16 \\
+Advanced       & 0.16 & 0.11 & -0.31 \\
+\midrule
+\textbf{Average} & \textbf{0.24} & \textbf{0.19} & \textbf{-0.32} \\
+\bottomrule
+\end{tabular}
+\label{tab:rag_results}
+\end{table}
 
-The human evaluation results were obtained by 3 evaluators (authors), who evaluated the answers on a scale from 1 to 5, regarding 7 predetermined categories. The results are shown in the Table \ref{tab:human_eval}.
+
+The human evaluation results were obtained by 2 evaluators (authors), who evaluated the answers on a scale from 1 to 5, regarding 7 predetermined categories: Answer relevancy, Correctness, Task completness, Clarity, Usefulness and Conciseness. 
 
 
 
@@ -144,9 +167,11 @@ The human evaluation results were obtained by 3 evaluators (authors), who evalua
 
 
 \section*{Discussion}
+The developed RAG model demonstrated capabilities of providing and generating helpful code snippets. The RAG model outperforms the baseline LLM - the RAG model benefited from access to the database of coding answers from Stackoverflow.  The simple and semi-advanced questions were answered with a good degree of relevancy and correctness. 
 
 
-\section*{Acknowledgments}
+
+
 
 \bibliographystyle{unsrt}
 \bibliography{report}
