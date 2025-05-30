@@ -5,6 +5,7 @@
 \usepackage{booktabs}
 \usepackage{caption}
 
+
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
 \definecolor{codepurple}{rgb}{0.58,0,0.82}
@@ -132,7 +133,7 @@ We chose the StableLM 2 Zephyr 1.6B \cite{stabilityAI} as our LLM. This was beca
 \end{figure}
 
 
-The obtained answers to queries, generated using the RAG model, were then processed as to remove "Incorrect answer" parts, remove markdown (eg. ```python) and the whitespace was normalized. In the evaluation step, the answers were compared to the ground truth answers, which were processed in the same way. The results of the evaluation separately on the three sets are shown in the Table \ref{tab:rag_results}. 
+The obtained answers to queries, generated using the RAG model, were then processed as to remove "Incorrect answer" parts, remove markdown (eg. ```python) and the whitespace was normalized. In the evaluation step, the answers were compared to the ground truth answers, which were processed in the same way. The results of the evaluation separately, and averaging, on the three sets are shown in the Table \ref{tab:rag_results}. 
 
 
 \section*{Results}
@@ -142,7 +143,7 @@ The following tables show the evaluation results of the RAG model across the thr
 
 \begin{table}[h]
 \centering
-\caption{Evaluation results of the RAG model across question difficulty categories.}
+\caption{Evaluation results of the RAG model across different difficulty categories.}
 \begin{tabular}{lccc}
 \toprule
 \textbf{Category} & \texttt{ROUGE-1} & \texttt{ROUGE-L} & \texttt{BERT F1} \\
@@ -158,16 +159,36 @@ Advanced       & 0.16 & 0.11 & -0.31 \\
 \end{table}
 
 
-The human evaluation results were obtained by 2 evaluators (authors), who evaluated the answers on a scale from 1 to 5, regarding 7 predetermined categories: Answer relevancy, Correctness, Task completness, Clarity, Usefulness and Conciseness. 
+The human evaluation results were obtained by 2 evaluators (authors), who evaluated the answers on a scale from 1 to 5, regarding 7 predetermined categories: (Answer) relevancy, Correctness, (Task) completness, Clarity, Usefulness and Conciseness. The results were then normalized to range from 0 to 1, where 0 is the worst and 1 is the best score. The results are shown in Table \ref{tab:metrics}.
 
-
-
+\begin{table}[h]
+\centering
+\caption{Evaluation metrics by question complexity (normalized to [0,1])}
+\small
+\begin{tabular}{lccc}
+\toprule
+Metric & Simple & Semi-Advanced & Advanced \\
+\midrule
+Relevancy     & 0.58 & 0.72 & 0.51 \\
+Correctness   & 0.54 & 0.61 & 0.43 \\
+Completeness  & 0.52 & 0.70 & 0.45 \\
+Clarity       & 0.54 & 0.67 & 0.43 \\
+Usefulness    & 0.51 & 0.63 & 0.40 \\
+Conciseness   & 0.57 & 0.68 & 0.49 \\
+\bottomrule
+\end{tabular}
+\label{tab:metrics}
+\end{table}
 
 
 
 
 \section*{Discussion}
-The developed RAG model demonstrated capabilities of providing and generating helpful code snippets. The RAG model outperforms the baseline LLM - the RAG model benefited from access to the database of coding answers from Stackoverflow.  The simple and semi-advanced questions were answered with a good degree of relevancy and correctness. 
+The developed RAG model demonstrated capabilities of providing and generating helpful code snippets. The RAG model outperforms the baseline LLM - the RAG model benefited from access to the database of coding answers from Stackoverflow. The simple and semi-advanced questions were answered with a good degree of relevancy and correctness. But we can see a clear drop in performance with the advanced instructions. The semi-advanced questions had higher ROUGE scores, possibly due to the fact that they were more specific or better represented in the database. The advanced questions were more complex and required more specific knowledge, which the model struggled with. 
+
+The quantitative results are interestingly in alignment with the human evaluation results. Semi-advanced questions consistently score higher across all quantitative and qualitative metrics, while advanced score the lowest. The RAG model demonstrates better accuracy on mid-level questions, probably due to their more balanced complexity and clearer intent.
+
+The ROUGE metrics show that RAG produces answers reasonably well, but the BERTScore F1 is negative (the range goes from -1 to 1 because of the cosine similarity calculation), which indicates that the answers are not very similar to the ground truth. The semantic content of the answers, which BERTScore measures, is not aligning well with the provided ground truth answers. This could be because RAG model is not able to generate answers that are very similar to the ground truth, but possibly answers more in regard to the question. 
 
 
 

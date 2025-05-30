@@ -1,0 +1,242 @@
+1. Python's if __name__ == '__main__':
+•	Answer Relevancy: 2, 1
+•	Correctness: 2, 1
+•	Task Completeness: 2, 2
+•	Clarity: 2, 1
+•	Usefulness: 2, 1
+•	Conciseness: 3, 5
+2. *args and **kwargs
+•	Answer Relevancy: 4, 5
+•	Correctness: 3, 4
+•	Task Completeness: 3, 3
+•	Clarity: 3, 5
+•	Usefulness: 3, 4
+•	Conciseness: 4, 4
+3. .loc[] vs .iloc[] in Pandas
+•	Answer Relevancy: 1, 1
+•	Correctness: 1, 1
+•	Task Completeness: 1, 1
+•	Clarity: 1, 1
+•	Usefulness: 1, 2
+•	Conciseness: 2, 1
+4. Handling Missing Values in DataFrame
+•	Answer Relevancy: 3, 3
+•	Correctness: 2, 3
+•	Task Completeness: 2, 3
+•	Clarity: 2, 4
+•	Usefulness: 3, 4
+•	Conciseness: 3, 4
+5. Unit Tests with unittest
+•	Answer Relevancy: 3, 4
+•	Correctness: 3, 4
+•	Task Completeness: 2, 1
+•	Clarity: 2, 3
+•	Usefulness: 2, 2
+•	Conciseness: 3, 2
+6. Purpose of __init__.py
+•	Answer Relevancy: 4, 5
+•	Correctness: 4, 5
+•	Task Completeness: 4, 4
+•	Clarity: 3, 4
+•	Usefulness: 3, 3
+•	Conciseness: 4, 3
+7. Inheritance in Python
+•	Answer Relevancy: 1, 1
+•	Correctness: 1, 1
+•	Task Completeness: 1, 1
+•	Clarity: 1, 
+•	Usefulness: 1, 1
+•	Conciseness: 1, 
+8. __str__ vs __repr__
+•	Answer Relevancy: 5, 4
+•	Correctness: 4, 4
+•	Task Completeness: 4, 5
+•	Clarity: 4, 4
+•	Usefulness: 4, 3
+•	Conciseness: 4, 3
+9. Virtual Environments
+•	Answer Relevancy: 1, 1
+•	Correctness: 1, 1
+•	Task Completeness: 1, 
+•	Clarity: 1, 
+•	Usefulness: 1, 1
+•	Conciseness: 1, 1
+10. NumPy Usag
+•	Answer Relevancy: 5, 3
+•	Correctness: 5, 4
+•	Task Completeness: 5, 4
+•	Clarity: 5, 5
+•	Usefulness: 4, 4
+•	Conciseness: 4, 5
+11. Matplotlib Fixed Font Size
+•	Answer Relevancy: 4, 5
+•	Correctness: 3, 5
+•	Task Completeness: 3, 4
+•	Clarity: 3, 3
+•	Usefulness: 3, 4
+•	Conciseness: 2, 3
+12. PyTorch Neural Network Training
+•	Answer Relevancy: 4, 3
+•	Correctness: 3, 3
+•	Task Completeness: 2, 3
+•	Clarity: 2, 2
+•	Usefulness: 3, 4
+•	Conciseness: 3, 2
+13. Merging Pandas DataFrames
+•	Answer Relevancy: 2, 1
+•	Correctness: 1, 1
+•	Task Completeness: 2, 2
+•	Clarity: 2, 1
+•	Usefulness: 2, 2
+•	Conciseness: 2, 3
+14. Saving Sci-kit Learn Model
+•	Answer Relevancy: 3, 2
+•	Correctness: 2, 4
+•	Task Completeness: 3, 2
+•	Clarity: 3, 3
+•	Usefulness: 2, 2
+•	Conciseness: 3, 2
+ 
+Semi-Advanced Questions
+1. Removing Duplicates from List
+•	Answer Relevancy: 4, 4
+•	Correctness: 4, 4
+•	Task Completeness: 5, 5
+•	Clarity: 5, 5
+•	Usefulness: 4, 4
+•	Conciseness: 5, 5
+2. Reversing a List Without Built-ins
+•	Answer Relevancy: 3, 4
+•	Correctness: 3, 1
+•	Task Completeness: 3, 2
+•	Clarity: 4, 2
+•	Usefulness: 3, 1
+•	Conciseness: 4, 3
+3. Palindrome Checker
+•	Answer Relevancy: 5, 5
+•	Correctness: 5, 5
+•	Task Completeness: 5, 5
+•	Clarity: 5, 5
+•	Usefulness: 5, 5
+•	Conciseness: 4, 5
+4. Checking Duplicates in Pandas Column
+•	Answer Relevancy: 3, 3
+•	Correctness: 2, 2
+•	Task Completeness: 3, 2
+•	Clarity: 3, 3
+•	Usefulness: 2, 3
+•	Conciseness: 3, 3
+5. HTTP GET Request
+•	Answer Relevancy: 4, 4
+•	Correctness: 4, 4
+•	Task Completeness: 4, 4
+•	Clarity: 3, 4
+•	Usefulness: 4, 3
+•	Conciseness: 3, 3
+6. Pickle Serialization
+•	Answer Relevancy: 3, 3
+•	Correctness: 2, 2
+•	Task Completeness: 3, 2
+•	Clarity: 3, 3
+•	Usefulness: 3, 3
+•	Conciseness: 3, 3
+7. Linear Regression with Scikit-Learn
+•	Answer Relevancy: 1, 1
+•	Correctness: 1, 1
+•	Task Completeness: 1, 1
+•	Clarity: 1, 1
+•	Usefulness: 1, 1
+•	Conciseness: 1, 1
+8. Finding Max Value in List
+•	Answer Relevancy: 5, 5
+•	Correctness: 3, 3
+•	Task Completeness: 5, 4
+•	Clarity: 5, 3
+•	Usefulness: 3, 3
+•	Conciseness: 5, 3
+9. Even/Odd Check
+•	Answer Relevancy: 5, 5
+•	Correctness: 4, 4
+•	Task Completeness: 4, 5
+•	Clarity: 3, 3
+•	Usefulness: 3, 5
+•	Conciseness: 3, 5
+10. Intersection of Two Sets
+•	Answer Relevancy: 5, 5
+•	Correctness: 5, 5
+•	Task Completeness: 5, 5
+•	Clarity: 4, 5
+•	Usefulness: 5, 5
+•	Conciseness: 4, 5
+11. Simple Calculator
+•	Answer Relevancy: 5, 5
+•	Correctness: 5, 5
+•	Task Completeness: 5, 5
+•	Clarity: 4, 5
+•	Usefulness: 4, 5
+•	Conciseness: 4, 5
+12. Celsius to Fahrenheit Conversion
+•	Answer Relevancy: 1, 1
+•	Correctness: 1, 1
+•	Task Completeness: 1, 1
+•	Clarity: 1, 1
+•	Usefulness: 1,  1
+•	Conciseness: 1, 1
+13. Saving/Loading NumPy Array
+•	Answer Relevancy: 3, 2
+•	Correctness: 2, 1
+•	Task Completeness: 3, 3
+•	Clarity: 3, 3
+•	Usefulness: 2, 3
+•	Conciseness: 3, 3
+ 
+Advanced Questions
+1. Weather App Plan
+•	Answer Relevancy: 4, 4
+•	Correctness: 3, 2
+•	Task Completeness: 2, 3
+•	Clarity: 2, 3
+•	Usefulness: 2, 3
+•	Conciseness: 3, 4
+2. RAG Pipeline
+•	Answer Relevancy: 1, 1
+•	Correctness: 1, 1
+•	Task Completenss: 1, 1
+•	Clarity: 1, 1
+•	Usefulness: 1, 1
+•	Conciseness: 1, 1
+3. Backpropagation Explanation
+•	Answer Relevancy: 3, 3
+•	Correctness: 3, 3
+•	Task Completeness: 3, 3
+•	Clarity: 3, 3
+•	Usefulness: 3, 3
+•	Conciseness: 3, 3
+4. Cholesky Decomposition
+•	Answer Relevancy: 2, 5
+•	Correctness: 3, 3
+•	Task Completeness: 3, 3
+•	Clarity: 3, 5
+•	Usefulness: 3, 3
+•	Conciseness: 2, 5
+5. RSA Explanation for a Child
+•	Answer Relevancy: 3, 4
+•	Correctness: 3, 4
+•	Task Completeness: 3, 3
+•	Clarity: 2, 2
+•	Usefulness: 3, 2
+•	Conciseness: 3, 4
+6. Algorithms & Data Structures Project
+•	Answer Relevancy: 1, 1
+•	Correctness: 1, 1
+•	Task Completeness: 1, 1
+•	Clarity: 1, 1
+•	Usefulness: 1, 1
+•	Conciseness: 1, 1
+7. Filling VIRT/SHR Memory in Python
+•	Answer Relevancy: 2, 2
+•	Correctness: 1, 1,
+•	Task Completeness: 1, 1
+•	Clarity: 1, 2
+•	Usefulness: 1, 1,
+•	Conciseness: 2, 1
