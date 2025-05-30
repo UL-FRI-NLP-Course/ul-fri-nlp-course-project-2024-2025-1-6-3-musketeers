@@ -86,7 +86,7 @@ We have developed a retrieval-augmented generation to provide relevant context t
 We used Stack Overflow \cite{StackOverflow} question-answer pairs as our context database, for now only  focusing on python-related content due to the computational complexity of the pipeline. Later, if resources allow, we are going to expand to other languages as well.
 
 \subsection*{Data preparation}
-As mentioned, we are using Stack Overflow data, specifically extracted python tagged questions from Google Big Query's public Stack Overflow dataset. We are not only  interested in question and answer contents, but also tags and Stack Overflow scores, for pre- and post-retrieval processing.
+As mentioned, we are using Stack Overflow data, specifically extracted python tagged questions from Google Big Query's public Stack Overflow dataset. We are not only  interested in question and answer contents, but also tags and Stack Overflow scores, for pre- and post-retrieval processing. In this assignment, 500 question-answer pairs were extracted and used for the RAG model to have access to. This is a small subset of the Stack Overflow database (consisting of around 80000 question-answer pairs), but it is enough to test the RAG pipeline. 
 
 \subsection*{Chunking}
 We split each answer-question pair into multiple chunks. For each chunk, we save the text to be embedded and also some metadata that will help at the retrieval step. For a question-answer pair, we embed: the question with the answer stored as metadata, the answer, and all the code blocks we find in answers. We don't use code from the question texts, as it often contains errors and is thus in the question body. We use a very simple code identifier function that claims something is code if it is inside '$<$code$>$' blocks, longer than 10 characters and contains at least two lines, as code usually spans across multiple lines. 
@@ -189,6 +189,8 @@ The developed RAG model demonstrated capabilities of providing and generating he
 The quantitative results are interestingly in alignment with the human evaluation results. Semi-advanced questions consistently score higher across all quantitative and qualitative metrics, while advanced score the lowest. The RAG model demonstrates better accuracy on mid-level questions, probably due to their more balanced complexity and clearer intent.
 
 The ROUGE metrics show that RAG produces answers reasonably well, but the BERTScore F1 is negative (the range goes from -1 to 1 because of the cosine similarity calculation), which indicates that the answers are not very similar to the ground truth. The semantic content of the answers, which BERTScore measures, is not aligning well with the provided ground truth answers. This could be because RAG model is not able to generate answers that are very similar to the ground truth, but possibly answers more in regard to the question. 
+
+These results and the RAG model can be improved by allowing a bigger access to the database, as currently, these results were obtained on a limited number of only 500 question - answer pairs from the Stack Overflow database. The RAG model can also be improved by using a state-of-the-art reranker, and reranking maybe a larger set of initialy retrieved results (currently set at 10).
 
 
 
